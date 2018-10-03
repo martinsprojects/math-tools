@@ -2,7 +2,7 @@
 A library I made to learn and explore math
 
 # To define a vector you write:
-A = vector([x, y})
+A = vector([x, y)]
 
 # Adding two vectors:
 C = A + B
