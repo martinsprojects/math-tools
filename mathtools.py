@@ -1,41 +1,27 @@
-import math
-
 class vector(object):
-	def __init__(self, vector):
-		self.vector = vector
-
-	def __repr__(self):
-		return repr(self.vector)
-
-	def __add__(a, b):
-		return [sum(a.vector) for a.vector in zip(a.vector, b.vector)]
-
-	def __sub__(a, b):
-		return [a.vector - b.vector for (a.vector, b.vector) in zip(a.vector, b.vector)]
+	def __init__(self, data):
+		self.data = data
 	
-	def __mul__(a, b):
-		mul = [b, b, b]
-		return [a.vector * mul for (a.vector, mul) in zip(a.vector, mul)]
+	def __repr__(self):
+		return self.__class__.__name__+'('+repr(self.data)+')'
+	
+	def __add__(self, other):
+		return self.__class__([a + b for a, b in zip(self.data, other.data)])
+	
+	def __sub__(self, other):
+		return self.__class__([a - b for a, b in zip(self.data, other.data)])
+	
+	def __mul__(self, other):
+		a = []
+		for i in range(len(self.data)):
+			a.append(self.data[i] * other)
+		return self.__class__(a)
 
-	# DOESN'T WORK YET
+"""
 	def __div__(a, b):
 		div = [b, b, b]
 		return [a.vector / div for (a.vector, div) in zip(a.vector, div)]
-
 """
-		for i in a.vector:
-			divide = a.vector[i] / b
-			div.append(divide)
-		#a.vector = div
-		return div
-"""
-
-vector1 = vector([4,3,8])
-vector2 = vector([2,0,1])
-
-print('result of vector operation:', vector1 * 2)
-
-
 """
 	def vecnormalize(x):
 		vecsum = 0
