@@ -1,3 +1,5 @@
+import math
+
 class vector(object):
 	def __init__(self, data):
 		self.data = data
@@ -17,11 +19,32 @@ class vector(object):
 			a.append(self.data[i] * other)
 		return self.__class__(a)
 
-"""
-	def __div__(a, b):
-		div = [b, b, b]
-		return [a.vector / div for (a.vector, div) in zip(a.vector, div)]
-"""
+	def __truediv__(self, other):
+		a = []
+		for i in range(len(self.data)):
+			a.append(self.data[i] / other)
+		return self.__class__(a)
+
+class veclen(object):
+	def __init__(self, data):
+		self.data = data
+		self.vecmagnitude()
+
+	def __float__(self):
+		return self.data
+	
+	def __repr__(self):
+		return repr(self.data)
+	
+	def vecmagnitude(self):
+		vecsum = 0
+		for i in self.data.data:
+			vecsum += math.pow(i, 2)
+			magnitude = math.sqrt(vecsum)
+		self.data = float(magnitude)
+		return self.data
+
+
 """
 	def vecnormalize(x):
 		vecsum = 0
@@ -33,12 +56,6 @@ class vector(object):
 			unitvec.append(i / veclen)
 		return unitvec
 	
-	def veclen(x):
-		vecsum = 0
-		for i in x:
-			vecsum += math.pow(i, 2)
-		magnitude = math.sqrt(vecsum)
-		return magnitude
 	
 	def pointdistance(x, y):
 		return math.sqrt(sum(pow(a - b, 2) for a, b in zip(x, y)))
