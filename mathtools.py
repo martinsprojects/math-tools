@@ -1,6 +1,6 @@
 import math
 
-class vector(object):
+class Vector(object):
 	def __init__(self, data):
 		self.data = data
 	
@@ -13,6 +13,7 @@ class vector(object):
 	def __sub__(self, other):
 		return self.__class__([a - b for a, b in zip(self.data, other.data)])
 	
+	# use zip() for the last two operators
 	def __mul__(self, other):
 		a = []
 		for i in range(len(self.data)):
@@ -21,10 +22,57 @@ class vector(object):
 
 	def __truediv__(self, other):
 		a = []
+		#the loop in __truediv__ can be rewritten as:
+		#for d in self.data:
+		#	a.append(d / other)
 		for i in range(len(self.data)):
 			a.append(self.data[i] / other)
 		return self.__class__(a)
 
+
+	@property
+	def len(self):
+		vecsum = 0
+		for i in self.data:
+			vecsum += math.pow(i, 2)
+			magnitude = math.sqrt(vecsum)
+		self.data = float(magnitude)
+		return self.data
+	
+	#@property
+	#def magnitude(self):
+	#	return math.sqrt(sum(x**2 for x in self.data))
+	
+	@property
+	def unit(self):
+		vecsum = 0
+		unitvec = []
+		for i in self.data:
+			vecsum += math.pow(i, 2)
+		veclen = math.sqrt(vecsum)
+		for i in self.data:
+			unitvec.append(i / veclen)
+		return self.__class__(unitvec)
+
+	#@property
+	def dot(self, other):
+		return (sum((a * b) for a, b in zip(self.data, other.data)))
+
+def sphericalcoord(r, theta, phi): # altitude, longitude, latitude
+	x = r * math.sin(theta) * math.cos(phi)
+	y = r * math.sin(theta) * math.sin(phi)
+	z = r * math.cos(theta)
+	return sphere_x, sphere_y, sphere_z
+
+def cartesian_to_spherical(x, y, z): # z is up
+	r = math.sqrt(math.pow(x, 2) + math.pow(y, 2) + math.pow(z, 2))
+	theta = math.acos(z / r)
+	phi = math.atan(y / x)
+	return r, theta, phi
+
+
+
+"""
 class veclen(object):
 	def __init__(self, data):
 		self.data = data
@@ -44,24 +92,14 @@ class veclen(object):
 		self.data = float(magnitude)
 		return self.data
 
-
 """
-	def vecnormalize(x):
-		vecsum = 0
-		unitvec = []
-		for i in x:
-			vecsum += math.pow(i, 2)
-		veclen = math.sqrt(vecsum)
-		for i in x:
-			unitvec.append(i / veclen)
-		return unitvec
+"""
 	
 	
 	def pointdistance(x, y):
 		return math.sqrt(sum(pow(a - b, 2) for a, b in zip(x, y)))
 	
-	def dotproduct(x, y):
-		return sum((a * b) for a, b in zip(x, y))
+
 	
 	# get angle between two vectors
 	def vecangle(x, y): # this is unfished fix it
