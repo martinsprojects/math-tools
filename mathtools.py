@@ -58,6 +58,7 @@ class Vector(object):
 	def dot(self, other):
 		return (sum((a * b) for a, b in zip(self.data, other.data)))
 
+"""
 def sphericalcoord(r, theta, phi): # altitude, longitude, latitude
 	x = r * math.sin(theta) * math.cos(phi)
 	y = r * math.sin(theta) * math.sin(phi)
@@ -69,7 +70,7 @@ def cartesian_to_spherical(x, y, z): # z is up
 	theta = math.acos(z / r)
 	phi = math.atan(y / x)
 	return r, theta, phi
-
+"""
 
 
 """
